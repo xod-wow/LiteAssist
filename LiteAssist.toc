@@ -1,0 +1,9 @@
+## Interface: 40000
+## Title: LiteAssist
+## Version: 4.0.0
+## Author: Xodiv of Proudmoore
+## Email: mib@post.com
+## Dependencies:
+localization.lua
+LiteAssist.lua
+LiteAssist.xml

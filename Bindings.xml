@@ -1,0 +1,18 @@
+<!--
+    LiteAssist Keybindings
+-->
+<Bindings>
+
+<Binding name="LITEASSIST_LEARNTARGET" header="LITEASSIST_TITLE">
+  -- Dummy for overriding with SetOverrideBindingClick()
+</Binding>
+
+<Binding name="LITEASSIST_LEARNHOVER">
+  -- Dummy for overriding with SetOverrideBindingClick()
+</Binding>
+
+<Binding name="LITEASSIST_DO">
+  -- Dummy for overriding with SetOverrideBindingClick()
+</Binding>
+
+</Bindings> 

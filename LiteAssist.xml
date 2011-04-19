@@ -1,0 +1,172 @@
+<!-- LiteAssist -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\FrameXML\UI.xsd">
+
+<!--
+  - Since 2.0 we aren't allowed to call the assist functions ourselves,
+  - so we have to proxy them via UI button elements using the
+  - SecureActionButton template and bind keys to imitate clicking it
+  - with the mouse to fire off the action.  Clumsy, but that's Blizzard
+  - for you.
+ -->
+
+<!--
+  - This first button does the actual assisting, bound to LITEASSIST_DO.
+  -
+  - It starts out assisting your target (normal behaviour for the assist
+  - key), but the learn button below will change the macro to assiste
+  - the learnt named unit.
+  -
+  - The configuration of that is done in the OnLoad handler.
+ -->
+
+<Button name="LiteAssistDo"
+    inherits="SecureActionButtonTemplate"
+    hidden="true"
+    >
+
+    <Size>
+	<!-- In theory if you don't have a size you can't click -->
+	<AbsDimension x="2" y="2" />
+    </Size>
+
+</Button>
+
+<!--
+  - These two buttons learn a new assist unit (MA, whatever).
+  -
+  - Since all we're doing is changing a macro and we aren't doing
+  - it in combat, we don't actually need these buttons.  But, I'm
+  - leaving it done this way to allow easier implementing of something
+  - clever if Blizzard allow more things to be done with the 
+  - SecureActionButtons.
+  -
+  - The preclick handler here just changes the macrotext of the
+  - previous button and pops up a message about what it did.
+  -
+  - We could do this with one button and different actions for left-click
+  - and right-click, but it'd be a lot less clear.  Not worth it
+  - just to save one button.
+ -->
+
+<Button name="LiteAssistLearnTarget"
+    inherits="SecureActionButtonTemplate"
+    hidden="true"
+    >
+
+    <Size>
+	<AbsDimension x="2" y="2" />
+    </Size>
+
+    <Scripts>
+	<PreClick>
+	    LiteAssist_LearnPreClick(self, button, down)
+	</PreClick>
+    </Scripts>
+
+</Button>
+
+<Button name="LiteAssistLearnHover"
+    inherits="SecureActionButtonTemplate"
+    hidden="true"
+    >
+
+    <Size>
+	<AbsDimension x="2" y="2" />
+    </Size>
+
+    <Scripts>
+	<PreClick>
+	    LiteAssist_LearnPreClick(self, button, down)
+	</PreClick>
+    </Scripts>
+
+</Button>
+
+
+<!--
+  - This is the actual text frame that holds the messages about
+  - which unit we learnt, that we cleared the assist, or that
+  - there was a problem.
+  -
+  - It also bootstraps the entire addon by calling LiteAssist_OnLoad
+  - in its OnLoad handler.
+ -->
+
+<MessageFrame name="LiteAssist"
+    parent="UIParent"
+    insertMode="TOP"
+    toplevel="true"
+    frameStrata="LOW"
+    >
+
+    <Size>
+	<!-- This is fixed up in the OnLoad handler to be 1 font-line high -->
+	<AbsDimension x="620" y="1" />
+    </Size>
+
+    <Anchors>
+	<Anchor point="CENTER">
+	    <Offset>
+		<AbsDimension x="0" y="0" />
+	    </Offset>
+	</Anchor>
+    </Anchors>
+
+    <FontString inherits="NumberFontNormalHuge" justifyH="CENTER" />
+
+    <Scripts>
+	<OnLoad>
+	    LiteAssist_OnLoad(self)
+
+	    -- This makes the box just high enough for one line of text
+	    local _, h, _ = self:GetFont()
+	    self:SetHeight(math.ceil(h) + 2)
+	</OnLoad>
+	<OnEvent>
+	    LiteAssist_OnEvent(self, event, ...)
+	</OnEvent>
+    </Scripts>
+
+</MessageFrame>
+
+
+<!--
+  - This is the "are we targeting the same thing as our assist" frame,
+  - a picture of crossed swords that appears on the default target frame.
+ -->
+
+<Frame name="LiteAssistTargetFrameIndicator"
+    frameStrata="MEDIUM"
+    parent="TargetFrame"
+    hidden="true"
+    >
+    <Layers>
+	<Layer level="OVERLAY">
+	    <!-- I shamelessly stole this icon/placement from CC MainAssist -->
+	    <Texture file="Interface\CharacterFrame\UI-StateIcon">
+		<Size>
+		    <AbsDimension x="32" y="32" />
+		</Size>
+		<Anchors>
+		    <Anchor
+			point="TOPLEFT"
+			relativeTo="TargetFrame"
+			relativePoint="TOPLEFT"
+			>
+			<Offset>
+			    <AbsDimension x="-12" y="-16" />
+			</Offset>
+		    </Anchor>
+		</Anchors>
+		<!-- The texture file actually has 4 images in it, one in
+		  - each quarter.  This picks the top right image, which
+		  - is the crossed swords.
+		 -->
+		<TexCoords left="0.5" right="0.95" top="0.05" bottom="0.5" />
+	    </Texture>
+	</Layer>
+    </Layers>
+</Frame>
+
+</Ui>
