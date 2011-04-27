@@ -1,9 +1,9 @@
-## Interface: 40000
+## Interface: 40100
 ## Name: LiteAssistBroker
 ## Title: LiteAssistBroker
 ## Notes: LiteAssist LibDataBroker display for FuBar, Titan Panel etc.
 ## Dependencies: LiteAssist
-## Version: 4.0.0
+## Version: 4.1.0
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
