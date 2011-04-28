@@ -1,3 +1,7 @@
+Version 4.1.0 - 27-Apr-2011
+  - Update TOC for WoW 4.1.0
+  - No other changes.
+
 Version 4.0.0 - 13-Oct-2010
   - Update TOC for WoW 4.0.1
   - Fix event handlers for 4.0's changes to handler global variables.
