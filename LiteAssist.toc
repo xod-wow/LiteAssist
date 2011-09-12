@@ -1,6 +1,6 @@
 ## Interface: 40200
 ## Title: LiteAssist
-## Version: 4.2.0
+## Version: @project-version@
 ## Author: Xodiv of Proudmoore
 ## Email: mib@post.com
 ## Dependencies:
