@@ -26,8 +26,8 @@
     >
 
     <Size>
-	<!-- In theory if you don't have a size you can't click -->
-	<AbsDimension x="2" y="2" />
+        <!-- In theory if you don't have a size you can't click -->
+        <AbsDimension x="2" y="2" />
     </Size>
 
 </Button>
@@ -55,13 +55,13 @@
     >
 
     <Size>
-	<AbsDimension x="2" y="2" />
+        <AbsDimension x="2" y="2" />
     </Size>
 
     <Scripts>
-	<PreClick>
-	    LiteAssist_LearnPreClick(self, button, down)
-	</PreClick>
+        <PreClick>
+            LiteAssist_LearnPreClick(self, button, down)
+        </PreClick>
     </Scripts>
 
 </Button>
@@ -72,13 +72,13 @@
     >
 
     <Size>
-	<AbsDimension x="2" y="2" />
+        <AbsDimension x="2" y="2" />
     </Size>
 
     <Scripts>
-	<PreClick>
-	    LiteAssist_LearnPreClick(self, button, down)
-	</PreClick>
+        <PreClick>
+            LiteAssist_LearnPreClick(self, button, down)
+        </PreClick>
     </Scripts>
 
 </Button>
@@ -101,31 +101,31 @@
     >
 
     <Size>
-	<!-- This is fixed up in the OnLoad handler to be 1 font-line high -->
-	<AbsDimension x="620" y="1" />
+        <!-- This is fixed up in the OnLoad handler to be 1 font-line high -->
+        <AbsDimension x="620" y="1" />
     </Size>
 
     <Anchors>
-	<Anchor point="CENTER">
-	    <Offset>
-		<AbsDimension x="0" y="0" />
-	    </Offset>
-	</Anchor>
+        <Anchor point="CENTER">
+            <Offset>
+                <AbsDimension x="0" y="0" />
+            </Offset>
+        </Anchor>
     </Anchors>
 
     <FontString inherits="NumberFontNormalHuge" justifyH="CENTER" />
 
     <Scripts>
-	<OnLoad>
-	    LiteAssist_OnLoad(self)
+        <OnLoad>
+            LiteAssist_OnLoad(self)
 
-	    -- This makes the box just high enough for one line of text
-	    local _, h, _ = self:GetFont()
-	    self:SetHeight(math.ceil(h) + 2)
-	</OnLoad>
-	<OnEvent>
-	    LiteAssist_OnEvent(self, event, ...)
-	</OnEvent>
+            -- This makes the box just high enough for one line of text
+            local _, h, _ = self:GetFont()
+            self:SetHeight(math.ceil(h) + 2)
+        </OnLoad>
+        <OnEvent>
+            LiteAssist_OnEvent(self, event, ...)
+        </OnEvent>
     </Scripts>
 
 </MessageFrame>
@@ -142,30 +142,30 @@
     hidden="true"
     >
     <Layers>
-	<Layer level="OVERLAY">
-	    <!-- I shamelessly stole this icon/placement from CC MainAssist -->
-	    <Texture file="Interface\CharacterFrame\UI-StateIcon">
-		<Size>
-		    <AbsDimension x="32" y="32" />
-		</Size>
-		<Anchors>
-		    <Anchor
-			point="TOPLEFT"
-			relativeTo="TargetFrame"
-			relativePoint="TOPLEFT"
-			>
-			<Offset>
-			    <AbsDimension x="-12" y="-16" />
-			</Offset>
-		    </Anchor>
-		</Anchors>
-		<!-- The texture file actually has 4 images in it, one in
-		  - each quarter.  This picks the top right image, which
-		  - is the crossed swords.
-		 -->
-		<TexCoords left="0.5" right="0.95" top="0.05" bottom="0.5" />
-	    </Texture>
-	</Layer>
+        <Layer level="OVERLAY">
+            <!-- I shamelessly stole this icon/placement from CC MainAssist -->
+            <Texture file="Interface\CharacterFrame\UI-StateIcon">
+                <Size>
+                    <AbsDimension x="32" y="32" />
+                </Size>
+                <Anchors>
+                    <Anchor
+                        point="TOPLEFT"
+                        relativeTo="TargetFrame"
+                        relativePoint="TOPLEFT"
+                        >
+                        <Offset>
+                            <AbsDimension x="-12" y="-16" />
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <!-- The texture file actually has 4 images in it, one in
+                  - each quarter.  This picks the top right image, which
+                  - is the crossed swords.
+                 -->
+                <TexCoords left="0.5" right="0.95" top="0.05" bottom="0.5" />
+            </Texture>
+        </Layer>
     </Layers>
 </Frame>
 

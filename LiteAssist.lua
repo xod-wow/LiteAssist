@@ -32,7 +32,7 @@ local AssistEventCallbacks = {}
 
 local function DebugMsg(msg)
     if not Debug then
-	return
+        return
     end
 
     local msg = "|cff00ff00"..LITEASSIST_MODNAME..":|r "..msg.." (debug)"
@@ -41,11 +41,11 @@ end
 
 function LiteAssist_SetDebug(val)
     if val and val ~= 0 then
-	Debug = true
-	DebugMsg("Debugging enabled")
+        Debug = true
+        DebugMsg("Debugging enabled")
     else
-	DebugMsg("Debugging disabled")
-	Debug = false
+        DebugMsg("Debugging disabled")
+        Debug = false
     end
 end
 
@@ -64,10 +64,10 @@ local function BindButton(button, bindingname)
     local keys = { GetBindingKey(bindingname) }
 
     for i, keystr in ipairs(keys) do
-	if keystr ~= "" then
-	    DebugMsg("Bound key "..keystr.." to button "..buttonname)
-	    SetOverrideBindingClick(LiteAssist, true, keystr, buttonname)
-	end
+        if keystr ~= "" then
+            DebugMsg("Bound key "..keystr.." to button "..buttonname)
+            SetOverrideBindingClick(LiteAssist, true, keystr, buttonname)
+        end
     end
 
 end
@@ -137,11 +137,11 @@ end
 local function UnitIdToAssistName(id)
 
     if not UnitExists(id) then
-	return nil
+        return nil
     elseif UnitIsUnit("pet", id) then
-	return "pet"
+        return "pet"
     else
-	return UnitName(id)
+        return UnitName(id)
     end
 
 end
@@ -150,49 +150,49 @@ local function UnitNameToId(name)
 
     -- Some code relies on this returning nil for nil
     if name == nil then
-	return nil
+        return nil
     end
 
     if UnitName("player") == name then
-	return "player"
+        return "player"
     end
 
     if UnitName("pet") == name then
-	return "pet"
+        return "pet"
     end
 
     if UnitName("focus") == name then
-    	return "focus"
+        return "focus"
     end
 
     local u
 
     for i = 1,4,1 do
-	u = "party"..i
-	if UnitName(u) == name then
-	    return u
-	end
+        u = "party"..i
+        if UnitName(u) == name then
+            return u
+        end
     end
 
     for i = 1,40,1 do
-	u = "raid"..i
-	if UnitName(u) == name then
-	    return u
-	end
+        u = "raid"..i
+        if UnitName(u) == name then
+            return u
+        end
     end
 
     for i = 1,4,1 do
-	u = "partypet"..i
-	if UnitName(u) == name then
-	    return u
-	end
+        u = "partypet"..i
+        if UnitName(u) == name then
+            return u
+        end
     end
 
     for i = 1,40,1 do
-	u = "raidpet"..i
-	if UnitName(u) == name then
-	    return u
-	end
+        u = "raidpet"..i
+        if UnitName(u) == name then
+            return u
+        end
     end
 
     return nil
@@ -209,30 +209,30 @@ local function GetMacroText(name)
     DebugMsg("Checking to see if a "..MacroName.." macro exists.")
 
     if mtext ~= nil then
-	DebugMsg("Found a macro named "..MacroName)
-	DebugMsg("Macro text before substitution: ")
-	DebugMsg(mtext)
+        DebugMsg("Found a macro named "..MacroName)
+        DebugMsg("Macro text before substitution: ")
+        DebugMsg(mtext)
 
-	if string.find(mtext, MacroMagicName) then
-	    mtext = string.gsub(mtext, MacroMagicName, name)
-	    mtext = string.gsub(mtext, MacroMagicId, CurrentId or "none")
-	    DebugMsg("Macro text after substitution: ")
-	    DebugMsg(mtext)
-	else
-	    DebugMsg("Macro text does not contain string "..MacroMagicName)
-	    mtext = nil
-	end
+        if string.find(mtext, MacroMagicName) then
+            mtext = string.gsub(mtext, MacroMagicName, name)
+            mtext = string.gsub(mtext, MacroMagicId, CurrentId or "none")
+            DebugMsg("Macro text after substitution: ")
+            DebugMsg(mtext)
+        else
+            DebugMsg("Macro text does not contain string "..MacroMagicName)
+            mtext = nil
+        end
     else
-	DebugMsg("No macro found.")
+        DebugMsg("No macro found.")
     end
     
     if mtext == nil then
-	mtext = "/assist "..name
-	DebugMsg("Using default macro text: "..mtext)
+        mtext = "/assist "..name
+        DebugMsg("Using default macro text: "..mtext)
     end
 
     if string.len(mtext) > 255 then
-	Alert(LITEASSIST_MACROTOOLONG)
+        Alert(LITEASSIST_MACROTOOLONG)
     end
 
     return mtext
@@ -246,22 +246,22 @@ end
 local function SetOnTarget(playerChanged)
 
     if not CurrentId then
-	if OnTarget then
-	    -- Must have cleared the assist
-	    LiteAssistTargetFrameIndicator:Hide()
-	    OnTarget = false
-	end
-	return
+        if OnTarget then
+            -- Must have cleared the assist
+            LiteAssistTargetFrameIndicator:Hide()
+            OnTarget = false
+        end
+        return
     end
 
     if UnitIsUnit("target", CurrentId.."target") then
-	if not OnTarget then
-	    OnTarget = true
-	    LiteAssistTargetFrameIndicator:Show()
-	end
+        if not OnTarget then
+            OnTarget = true
+            LiteAssistTargetFrameIndicator:Show()
+        end
     elseif OnTarget then
-	OnTarget = false
-	LiteAssistTargetFrameIndicator:Hide()
+        OnTarget = false
+        LiteAssistTargetFrameIndicator:Hide()
     end
 
 end
@@ -284,10 +284,10 @@ function LiteAssist_UnregisterCallback(fn)
     DebugMsg("Unregistering callback.")
 
     for i, v in ipairs(AssistEventCallbacks) do
-	if v == fn then
-	    table.remove(AssistEventCallbacks, i)
-	    return
-	end
+        if v == fn then
+            table.remove(AssistEventCallbacks, i)
+            return
+        end
     end
 end
 
@@ -297,7 +297,7 @@ local function DispatchCallbacks()
     DebugMsg("Dispatching Callbacks.")
 
     for _, fn in ipairs(AssistEventCallbacks) do
-	pcall(fn, CurrentName, OnTarget)
+        pcall(fn, CurrentName, OnTarget)
     end
 end
 
@@ -316,13 +316,13 @@ local function UpdateId()
     local name = CurrentName
 
     if name == "pet" then
-	DebugMsg("Unit is pet, using pet as unit id.")
-	CurrentId = "pet"
+        DebugMsg("Unit is pet, using pet as unit id.")
+        CurrentId = "pet"
     else
-	-- Note: UnitNameToId(nil) == nil
-	DebugMsg("Trying to find unit id for name "..(name or "nil"))
-	CurrentId = UnitNameToId(name)
-	DebugMsg("Unit id for "..(name or "nil").." is "..(CurrentId or "nil"))
+        -- Note: UnitNameToId(nil) == nil
+        DebugMsg("Trying to find unit id for name "..(name or "nil"))
+        CurrentId = UnitNameToId(name)
+        DebugMsg("Unit id for "..(name or "nil").." is "..(CurrentId or "nil"))
     end
 end
 
@@ -339,21 +339,21 @@ end
 
 local function AssistChangeAlert(name)
     if name == nil then
-	Alert(LITEASSIST_CLEAR)
+        Alert(LITEASSIST_CLEAR)
     elseif name == "pet" then
-	Alert(LITEASSIST_SET..LITEASSIST_PET)
+        Alert(LITEASSIST_SET..LITEASSIST_PET)
     else
-	Alert(LITEASSIST_SET..name)
+        Alert(LITEASSIST_SET..name)
     end
 end
 
 local function AssistChangeCombatAlert(name)
     if name == nil then
-	Alert(LITEASSIST_COMBATCLEAR)
+        Alert(LITEASSIST_COMBATCLEAR)
     elseif name == "pet" then
-	Alert(LITEASSIST_COMBATSET..LITEASSIST_PET)
+        Alert(LITEASSIST_COMBATSET..LITEASSIST_PET)
     else
-	Alert(LITEASSIST_COMBATSET..name)
+        Alert(LITEASSIST_COMBATSET..name)
     end
 end
 
@@ -361,18 +361,18 @@ end
 local function Learn(token)
 
     if UnitExists(token) and not UnitCanAssist("player", token) then
-	Alert(LITEASSIST_CANTASSISTNAME..UnitName(token))
-	return
+        Alert(LITEASSIST_CANTASSISTNAME..UnitName(token))
+        return
     end
 
     local assistname = UnitIdToAssistName(token)
 
     if InCombatLockdown() then
-	AssistChangeCombatAlert(assistname)
-	QueuedName = assistname
-	UpdateQueued = true
-	EnableEventHandling()
-	return
+        AssistChangeCombatAlert(assistname)
+        QueuedName = assistname
+        UpdateQueued = true
+        EnableEventHandling()
+        return
     end
 
     CurrentName = assistname
@@ -382,9 +382,9 @@ local function Learn(token)
     UpdateMacro()
 
     if CurrentName ~= nil then
-	EnableEventHandling()
+        EnableEventHandling()
     else
-	DisableEventHandling()
+        DisableEventHandling()
     end
 end
 
@@ -451,63 +451,63 @@ function LiteAssist_OnEvent(self, event, ...)
     -- end
 
     if event == "UPDATE_BINDINGS" then
-	-- I have no idea why UPDATE_BINDINGS is firing in combat.
-	if not InCombatLockdown() then
-	    SetKeyBindings()
-	end
-	return
+        -- I have no idea why UPDATE_BINDINGS is firing in combat.
+        if not InCombatLockdown() then
+            SetKeyBindings()
+        end
+        return
     end
 
     -- WoWWiki says PARTY_MEMBERS_CHANGED fires on raid changes also, so
     -- we don't need RAID_ROSTER_UPDATE.
     if event == "PARTY_MEMBERS_CHANGED" or
-	    event == "PLAYER_PET_CHANGED" or
-	    event == "UNIT_PET" or
-	    event == "PLAYER_FOCUS_CHANGED" or
-	    event == "UPDATE_MACROS" then
-	-- Fixes up the CurrentId and reloads/resubs the macro.
-	if InCombatLockdown() then
-	    UpdateQueued = true
-	else
-	    local oldid = CurrentId
-	    UpdateId()
-	    if CurrentId ~= oldid then
-		UpdateMacro()
-	    end
-	end
-	return
+            event == "PLAYER_PET_CHANGED" or
+            event == "UNIT_PET" or
+            event == "PLAYER_FOCUS_CHANGED" or
+            event == "UPDATE_MACROS" then
+        -- Fixes up the CurrentId and reloads/resubs the macro.
+        if InCombatLockdown() then
+            UpdateQueued = true
+        else
+            local oldid = CurrentId
+            UpdateId()
+            if CurrentId ~= oldid then
+                UpdateMacro()
+            end
+        end
+        return
     end
 
     if event == "PLAYER_TARGET_CHANGED" then
-	SetOnTarget(true)
-	TimeSinceLastUpdate = 0
-	return
+        SetOnTarget(true)
+        TimeSinceLastUpdate = 0
+        return
     end
 
     if event == "PLAYER_REGEN_ENABLED" then
-	-- Leaving combat
-	if not UpdateQueued or InCombatLockdown() then
-	    return
-	end
+        -- Leaving combat
+        if not UpdateQueued or InCombatLockdown() then
+            return
+        end
 
-	UpdateQueued = nil
+        UpdateQueued = nil
 
-	-- Can trigger because of roster update as well as in-combat learn
-	if QueuedName then
-	    CurrentName = QueuedName
-	    QueuedName = nil
-	    AssistChangeAlert(CurrentName)
-	    DispatchCallbacks()
-	    if CurrentName ~= nil then
-		EnableEventHandling()
-	    else
-		DisableEventHandling()
-	    end
-	end
+        -- Can trigger because of roster update as well as in-combat learn
+        if QueuedName then
+            CurrentName = QueuedName
+            QueuedName = nil
+            AssistChangeAlert(CurrentName)
+            DispatchCallbacks()
+            if CurrentName ~= nil then
+                EnableEventHandling()
+            else
+                DisableEventHandling()
+            end
+        end
 
-	UpdateId()
-	UpdateMacro()
-	return
+        UpdateId()
+        UpdateMacro()
+        return
     end
 
 end
@@ -517,7 +517,7 @@ function LiteAssist_OnUpdate(self, elapsed)
     TimeSinceLastUpdate = TimeSinceLastUpdate + elapsed
 
     if TimeSinceLastUpdate < UpdateFrequency then
-	return
+        return
     end
 
     SetOnTarget(false)
