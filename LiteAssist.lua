@@ -93,7 +93,7 @@ local function EnableEventHandling()
 
     local this = LiteAssist
     this:RegisterEvent("PLAYER_TARGET_CHANGED")
-    this:RegisterEvent("PARTY_MEMBERS_CHANGED")
+    this:RegisterEvent("GROUP_ROSTER_UPDATE")
     this:RegisterEvent("PLAYER_PET_CHANGED")
     this:RegisterEvent("PLAYER_FOCUS_CHANGED")
     this:RegisterEvent("UNIT_PET")
@@ -109,7 +109,7 @@ local function DisableEventHandling()
 
     local this = LiteAssist
     this:UnregisterEvent("PLAYER_TARGET_CHANGED")
-    this:UnregisterEvent("PARTY_MEMBERS_CHANGED")
+    this:UnregisterEvent("GROUP_ROSTER_UPDATE")
     this:UnregisterEvent("PLAYER_PET_CHANGED")
     this:UnregisterEvent("PLAYER_FOCUS_CHANGED")
     this:UnregisterEvent("UNIT_PET")
@@ -458,9 +458,7 @@ function LiteAssist_OnEvent(self, event, ...)
         return
     end
 
-    -- WoWWiki says PARTY_MEMBERS_CHANGED fires on raid changes also, so
-    -- we don't need RAID_ROSTER_UPDATE.
-    if event == "PARTY_MEMBERS_CHANGED" or
+    if event == "GROUP_ROSTER_UPDATE" or
             event == "PLAYER_PET_CHANGED" or
             event == "UNIT_PET" or
             event == "PLAYER_FOCUS_CHANGED" or
