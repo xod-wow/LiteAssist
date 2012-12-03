@@ -18,4 +18,4 @@ LITEASSIST_COMBATSET = "Assist queued for combat end: "
 LITEASSIST_COMBATCLEAR = "Assist clear queued for combat end"
 LITEASSIST_CANTASSISTNAME = "Can't assist "
 LITEASSIST_MACROTOOLONG = "LiteAssistMacro ends up longer than 255 characters"
-LITEASSIST_PET = "Pet"
+LITEASSIST_PET = PET
