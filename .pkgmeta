@@ -13,7 +13,3 @@ enable-nolib-creation: no
 
 tools-used:
     - libdatabroker-1-1
-
-manual-changelog:
-    filename: ChangeLog.txt
-    markup-type: plain
