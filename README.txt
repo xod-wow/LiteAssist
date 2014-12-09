@@ -1,6 +1,6 @@
 LiteAssist
 ==========
-  - by Xodiv of Proudmoore
+  - by Xodiv of Nagrand (formerly of Proudmoore)
 
 
 This is an addon for the computer game World of Warcraft.

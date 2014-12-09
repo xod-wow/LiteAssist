@@ -1,5 +1,6 @@
 --
 -- LiteAssist Localisation Strings
+-- Copyright 2008-2014 Mike "Xodiv" Battersby
 --
 
 -- ----------------------------------------------------------------------
