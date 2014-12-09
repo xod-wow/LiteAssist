@@ -3,15 +3,15 @@
 -->
 <Bindings>
 
-<Binding name="LITEASSIST_LEARNTARGET" header="LITEASSIST_TITLE">
+<Binding name="LITEASSIST_LEARNTARGET" header="LITEASSIST_TITLE" category="ADDONS">
   -- Dummy for overriding with SetOverrideBindingClick()
 </Binding>
 
-<Binding name="LITEASSIST_LEARNHOVER">
+<Binding name="LITEASSIST_LEARNHOVER" category="ADDONS">
   -- Dummy for overriding with SetOverrideBindingClick()
 </Binding>
 
-<Binding name="LITEASSIST_DO">
+<Binding name="LITEASSIST_DO" category="ADDONS">
   -- Dummy for overriding with SetOverrideBindingClick()
 </Binding>
 
