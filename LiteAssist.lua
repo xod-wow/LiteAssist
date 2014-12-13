@@ -64,7 +64,7 @@ local function UpgradeBindingNames()
 
     for old,new in pairs(BindingMap) do
         for _, keystr in ipairs({ GetBindingKey(old) }) do
-            if keystr ~= "" then
+            if keystr and keystr ~= "" then
                 SetBinding(key, new)
             end
         end
