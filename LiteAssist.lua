@@ -51,34 +51,24 @@ end
 
 
 -- ----------------------------------------------------------------------------
--- Key binding functions
+-- Version settings upgrade functions
 --
 
-local function BindButton(button, bindingname)
+local function UpgradeBindingNames()
 
-    -- Bindings can reference any number of keys (the UI allows you to
-    -- set two, but in theory it can be more).  GetBindingKey will return
-    -- all of them.
+    local BindingMap = {
+        ["LITEASSIST_LEARNTARGET"] = "CLICK LiteAssistLearnTarget",
+        ["LITEASSIST_LEARNHOVER"] = "CLICK LiteAssistLearnHover",
+        ["LITEASSSIST_DO"] = "CLICK LiteAssistDo",
+    }
 
-    local buttonname = button:GetName()
-    local keys = { GetBindingKey(bindingname) }
-
-    for i, keystr in ipairs(keys) do
-        if keystr ~= "" then
-            DebugMsg("Bound key "..keystr.." to button "..buttonname)
-            SetOverrideBindingClick(LiteAssist, true, keystr, buttonname)
+    for old,new in pairs(BindingMap) do
+        for _, keystr in ipairs({ GetBindingKey(old) }) do
+            if keystr ~= "" then
+                SetBinding(key, new)
+            end
         end
     end
-
-end
-
-local function SetKeyBindings()
-
-    DebugMsg("Binding keys.")
-    
-    BindButton(LiteAssistLearnTarget, "LITEASSIST_LEARNTARGET")
-    BindButton(LiteAssistLearnHover, "LITEASSIST_LEARNHOVER")
-    BindButton(LiteAssistDo, "LITEASSIST_DO")
 
 end
 
@@ -412,9 +402,8 @@ function LiteAssist_OnLoad(self)
     DebugMsg("OnLoad handler called.")
     DebugMsg("A truckload of debugging output enabled.")
 
-    -- Register the basic event handlers
-    -- this:RegisterEvent("ADDON_LOADED")
-    self:RegisterEvent("UPDATE_BINDINGS")
+    -- Config upgrades here
+    UpgradeBindingNames()
 
     -- Set up the default options for our assisting (assist target)
     LiteAssistDo:SetAttribute("type", "macro")
@@ -449,14 +438,6 @@ function LiteAssist_OnEvent(self, event, ...)
     -- if event == "ADDON_LOADED" then
     --     return
     -- end
-
-    if event == "UPDATE_BINDINGS" then
-        -- I have no idea why UPDATE_BINDINGS is firing in combat.
-        if not InCombatLockdown() then
-            SetKeyBindings()
-        end
-        return
-    end
 
     if event == "GROUP_ROSTER_UPDATE" or
             event == "PLAYER_PET_CHANGED" or
