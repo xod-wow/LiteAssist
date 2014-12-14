@@ -57,9 +57,12 @@ end
 local function UpgradeBindingNames()
 
     local BindingMap = {
-        ["LITEASSIST_LEARNTARGET"] = "CLICK LiteAssistLearnTarget",
-        ["LITEASSIST_LEARNHOVER"] = "CLICK LiteAssistLearnHover",
-        ["LITEASSSIST_DO"] = "CLICK LiteAssistDo",
+        ["CLICK LiteAssistLearnTarget"] = "CLICK LiteAssistLearnTarget:LeftButton",
+        ["CLICK LiteAssistLearnHover"] = "CLICK LiteAssistLearnHover:LeftButton",
+        ["CLICK LiteAssistDo"] = "CLICK LiteAssistDo:LeftButton",
+        ["LITEASSIST_LEARNTARGET"] = "CLICK LiteAssistLearnTarget:LeftButton",
+        ["LITEASSIST_LEARNHOVER"] = "CLICK LiteAssistLearnHover:LeftButton",
+        ["LITEASSSIST_DO"] = "CLICK LiteAssistDo:LeftButton",
     }
 
     for old,new in pairs(BindingMap) do

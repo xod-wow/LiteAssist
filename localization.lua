@@ -7,9 +7,9 @@
 -- Default / enUS locale
 --
 BINDING_HEADER_LITEASSIST_TITLE = "LiteAssist"
-_G["BINDING_NAME_CLICK LiteAssistLearnTarget"] = "Learn Assist From Target"
-_G["BINDING_NAME_CLICK LiteAssistLearnHover"] = "Learn Assist From MouseOver"
-_G["BINDING_NAME_CLICK LiteAssistDo"] = "Assist Learned Unit"
+_G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Learn Assist From Target"
+_G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Learn Assist From MouseOver"
+_G["BINDING_NAME_CLICK LiteAssistDo:LeftButton"] = "Assist Learned Unit"
 
 LITEASSIST_MODNAME = "LiteAssist"
 LITEASSIST_SET = "Assist set: "

@@ -5,15 +5,15 @@
 -->
 <Bindings>
 
-<Binding name="CLICK LiteAssistDo" header="LITEASSIST_TITLE" category="ADDONS">
+<Binding name="CLICK LiteAssistDo:LeftButton" header="LITEASSIST_TITLE" category="ADDONS">
   -- Dummy
 </Binding>
 
-<Binding name="CLICK LiteAssistLearnTarget" category="ADDONS">
+<Binding name="CLICK LiteAssistLearnTarget:LeftButton" category="ADDONS">
   -- Dummy
 </Binding>
 
-<Binding name="CLICK LiteAssistLearnHover" category="ADDONS">
+<Binding name="CLICK LiteAssistLearnHover:LeftButton" category="ADDONS">
   -- Dummy
 </Binding>
 
