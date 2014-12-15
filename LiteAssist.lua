@@ -62,13 +62,13 @@ local function UpgradeBindingNames()
         ["CLICK LiteAssistDo"] = "CLICK LiteAssistDo:LeftButton",
         ["LITEASSIST_LEARNTARGET"] = "CLICK LiteAssistLearnTarget:LeftButton",
         ["LITEASSIST_LEARNHOVER"] = "CLICK LiteAssistLearnHover:LeftButton",
-        ["LITEASSSIST_DO"] = "CLICK LiteAssistDo:LeftButton",
+        ["LITEASSIST_DO"] = "CLICK LiteAssistDo:LeftButton",
     }
 
     for old,new in pairs(BindingMap) do
         for _, keystr in ipairs({ GetBindingKey(old) }) do
             if keystr and keystr ~= "" then
-                SetBinding(key, new)
+                SetBinding(keystr, new)
             end
         end
     end
