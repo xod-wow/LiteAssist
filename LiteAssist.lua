@@ -1,7 +1,7 @@
 --
 -- LiteAssist World of Warcraft Addon
 --
--- Copyright 2008-2014 Mike "Xodiv" Battersby
+-- Copyright 2008-2015 Mike "Xodiv" Battersby
 --
 -- A simple addon that lets you set three keybindings, one to learn
 -- an assist (aka MA) unit from your current target, one to learn an
