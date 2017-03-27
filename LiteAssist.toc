@@ -1,4 +1,4 @@
-## Interface: 70100
+## Interface: 70200
 ## Title: LiteAssist
 ## Version: @project-version@
 ## Author: Mike "Xodiv" Battersby
