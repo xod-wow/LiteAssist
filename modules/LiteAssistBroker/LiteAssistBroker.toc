@@ -1,4 +1,4 @@
-## Interface: 70300
+## Interface: 80000
 ## Name: LiteAssistBroker
 ## Title: LiteAssistBroker
 ## Notes: LiteAssist LibDataBroker display for FuBar, Titan Panel etc.
