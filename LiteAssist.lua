@@ -87,7 +87,6 @@ local function EnableEventHandling()
     local this = LiteAssist
     this:RegisterEvent("PLAYER_TARGET_CHANGED")
     this:RegisterEvent("GROUP_ROSTER_UPDATE")
-    this:RegisterEvent("PLAYER_PET_CHANGED")
     this:RegisterEvent("PLAYER_FOCUS_CHANGED")
     this:RegisterEvent("UNIT_PET")
     this:RegisterEvent("UPDATE_MACROS")
@@ -103,7 +102,6 @@ local function DisableEventHandling()
     local this = LiteAssist
     this:UnregisterEvent("PLAYER_TARGET_CHANGED")
     this:UnregisterEvent("GROUP_ROSTER_UPDATE")
-    this:UnregisterEvent("PLAYER_PET_CHANGED")
     this:UnregisterEvent("PLAYER_FOCUS_CHANGED")
     this:UnregisterEvent("UNIT_PET")
     this:UnregisterEvent("UPDATE_MACROS")
@@ -434,7 +432,7 @@ function LiteAssist_OnLoad(self)
 
 end
 
-function LiteAssist_OnEvent(self, event, ...)
+function LiteAssist_OnEvent(self, event, arg1, ...)
 
     DebugMsg("Received event: "..event)
 
@@ -443,10 +441,9 @@ function LiteAssist_OnEvent(self, event, ...)
     -- end
 
     if event == "GROUP_ROSTER_UPDATE" or
-            event == "PLAYER_PET_CHANGED" or
-            event == "UNIT_PET" or
-            event == "PLAYER_FOCUS_CHANGED" or
-            event == "UPDATE_MACROS" then
+       event == "UNIT_PET" or
+       event == "PLAYER_FOCUS_CHANGED" or
+       event == "UPDATE_MACROS" then
         -- Fixes up the CurrentId and reloads/resubs the macro.
         if InCombatLockdown() then
             UpdateQueued = true
