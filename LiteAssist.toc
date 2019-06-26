@@ -1,4 +1,4 @@
-## Interface: 80100
+## Interface: 80200
 ## Title: LiteAssist
 ## Version: @project-version@
 ## Author: Mike "Xodiv" Battersby
