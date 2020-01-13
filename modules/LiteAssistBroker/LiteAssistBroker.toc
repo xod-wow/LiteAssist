@@ -1,4 +1,4 @@
-## Interface: 80205
+## Interface: 80300
 ## Name: LiteAssistBroker
 ## Title: LiteAssistBroker
 ## Notes: LiteAssist LibDataBroker display for FuBar, Titan Panel etc.

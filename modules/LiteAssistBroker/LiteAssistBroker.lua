@@ -1,7 +1,7 @@
 --
 -- LiteAssistBroker
 --
--- Copyright 2008-2015 Mike "Xodiv" Battersby
+-- Copyright 2008-2020 Mike "Xodiv" Battersby
 --
 -- Adds LibDataBroker support to LiteAssist
 --
