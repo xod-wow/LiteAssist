@@ -1,4 +1,4 @@
-## Interface: 90005
+## Interface: 90100
 ## Title: LiteAssist
 ## Version: @project-version@
 ## Author: Mike "Xodiv" Battersby
