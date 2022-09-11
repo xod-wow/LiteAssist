@@ -4,6 +4,7 @@
 ## Author: Mike "Xodiv" Battersby
 ## Email: mib@post.com
 ## Dependencies:
+## X-Curse-Project-ID: 4462
 localization.lua
 LiteAssist.lua
 LiteAssist.xml
