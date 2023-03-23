@@ -384,7 +384,9 @@ end
 -- Functions called from Secure UI elements
 --
 
-function LiteAssist_LearnPreClick(self, button, down)
+function LiteAssist_LearnPreClick(self, inputButton, isDown)
+
+    if isDown ~= GetCVarBool("ActionButtonUseKeyDown") then return end
 
     local fromtoken = self:GetAttribute("X-realunit")
 
@@ -423,9 +425,9 @@ function LiteAssist_OnLoad(self)
     LiteAssistLearnHover:SetAttribute("X-realunit", "mouseover")
 
     -- Cause the actions to fire on keydown rather than keyup
-    LiteAssistLearnTarget:RegisterForClicks("LeftButtonDown")
-    LiteAssistLearnHover:RegisterForClicks("LeftButtonDown")
-    LiteAssistDo:RegisterForClicks("LeftButtonDown")
+    LiteAssistLearnTarget:RegisterForClicks("AnyDown", "AnyUp")
+    LiteAssistLearnHover:RegisterForClicks("AnyDown", "AnyUp")
+    LiteAssistDo:RegisterForClicks("AnyDown", "AnyUp")
 
     -- Default message duration on the alert frame
     LiteAssist:SetTimeVisible(3)
