@@ -3,7 +3,7 @@
 ## Version: @project-version@
 ## Author: Mike "Xodiv" Battersby
 ## Email: mib@post.com
-## Dependencies:
+## IconTexture: 524348
 ## X-Curse-Project-ID: 4462
 
 localization.lua
