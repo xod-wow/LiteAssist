@@ -1,4 +1,4 @@
-## Interface: 100207
+## Interface: 110005
 ## Title: LiteAssist
 ## Version: @project-version@
 ## Author: Mike "Xodiv" Battersby
