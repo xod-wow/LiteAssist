@@ -422,10 +422,8 @@ function LiteAssist_OnLoad(self)
     -- This does not stop us using the other units in the macro.
     -- We save the unit we really want as "X-realunit" so we can fetch it
     -- back later from whichever button was clicked.
-    LiteAssistLearnTarget:SetAttribute("type", "macro")
     LiteAssistLearnTarget:SetAttribute("X-realunit", "target")
     LiteAssistLearnTarget:SetAttribute("pressAndHoldAction", true)
-    LiteAssistLearnHover:SetAttribute("type", "macro")
     LiteAssistLearnHover:SetAttribute("X-realunit", "mouseover")
     LiteAssistLearnHover:SetAttribute("pressAndHoldAction", true)
 
