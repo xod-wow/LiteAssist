@@ -410,6 +410,9 @@ function LiteAssist_OnLoad(self)
 
     -- Set up the default options for our assisting (assist target)
     LiteAssistDo:SetAttribute("type", "macro")
+    -- https://github.com/Stanzilla/WoWUIBugs/issues/317#issuecomment-1510847497
+    LiteAssistDo:SetAttribute("pressAndHoldAction", true)
+
     CurrentName = nil
     UpdateId()
     UpdateMacro()
@@ -421,13 +424,15 @@ function LiteAssist_OnLoad(self)
     -- back later from whichever button was clicked.
     LiteAssistLearnTarget:SetAttribute("type", "macro")
     LiteAssistLearnTarget:SetAttribute("X-realunit", "target")
+    LiteAssistLearnTarget:SetAttribute("pressAndHoldAction", true)
     LiteAssistLearnHover:SetAttribute("type", "macro")
     LiteAssistLearnHover:SetAttribute("X-realunit", "mouseover")
+    LiteAssistLearnHover:SetAttribute("pressAndHoldAction", true)
 
     -- Cause the actions to fire on keydown rather than keyup
-    LiteAssistLearnTarget:RegisterForClicks("AnyDown", "AnyUp")
-    LiteAssistLearnHover:RegisterForClicks("AnyDown", "AnyUp")
-    LiteAssistDo:RegisterForClicks("AnyDown", "AnyUp")
+    LiteAssistLearnTarget:RegisterForClicks("AnyDown")
+    LiteAssistLearnHover:RegisterForClicks("AnyDown")
+    LiteAssistDo:RegisterForClicks("AnyDown")
 
     -- Default message duration on the alert frame
     LiteAssist:SetTimeVisible(3)
