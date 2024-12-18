@@ -1,4 +1,4 @@
-## Interface: 110005
+## Interface: 110007
 ## Name: LiteAssistBroker
 ## Title: LiteAssistBroker
 ## Notes: LiteAssist LibDataBroker display for FuBar, Titan Panel etc.
