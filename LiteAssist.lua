@@ -51,32 +51,6 @@ end
 
 
 -- ----------------------------------------------------------------------------
--- Version settings upgrade functions
---
-
-local function UpgradeBindingNames()
-
-    local BindingMap = {
-        ["CLICK LiteAssistLearnTarget"] = "CLICK LiteAssistLearnTarget:LeftButton",
-        ["CLICK LiteAssistLearnHover"] = "CLICK LiteAssistLearnHover:LeftButton",
-        ["CLICK LiteAssistDo"] = "CLICK LiteAssistDo:LeftButton",
-        ["LITEASSIST_LEARNTARGET"] = "CLICK LiteAssistLearnTarget:LeftButton",
-        ["LITEASSIST_LEARNHOVER"] = "CLICK LiteAssistLearnHover:LeftButton",
-        ["LITEASSIST_DO"] = "CLICK LiteAssistDo:LeftButton",
-    }
-
-    for old,new in pairs(BindingMap) do
-        for _, keystr in ipairs({ GetBindingKey(old) }) do
-            if keystr and keystr ~= "" then
-                SetBinding(keystr, new)
-            end
-        end
-    end
-
-end
-
-
--- ----------------------------------------------------------------------------
 -- Event handling functions
 --
 
@@ -322,6 +296,7 @@ local function UpdateMacro()
     local name = CurrentName
 
     LiteAssistDo:SetAttribute("macrotext", GetMacroText(name or "target"))
+    LiteAssistDo:SetAttribute("unit", name or "target")
 
     DebugMsg("Set assist to " .. (name or "target") .. " / " .. (CurrentId or "none"))
     
@@ -405,11 +380,10 @@ function LiteAssist_OnLoad(self)
     DebugMsg("OnLoad handler called.")
     DebugMsg("A truckload of debugging output enabled.")
 
-    -- Config upgrades here
-    UpgradeBindingNames()
-
     -- Set up the default options for our assisting (assist target)
     LiteAssistDo:SetAttribute("type", "macro")
+    LiteAssistDo:SetAttribute("type2", "assist")
+
     -- https://github.com/Stanzilla/WoWUIBugs/issues/317#issuecomment-1510847497
     LiteAssistDo:SetAttribute("pressAndHoldAction", true)
 
