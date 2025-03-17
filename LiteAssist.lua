@@ -292,13 +292,10 @@ local function UpdateId()
 end
 
 
-local function UpdateMacro()
-    local name = CurrentName
-
+local function UpdateMacro(name, id)
     LiteAssistDo:SetAttribute("macrotext", GetMacroText(name or "target"))
-    LiteAssistDo:SetAttribute("unit", name or "target")
-
-    DebugMsg("Set assist to " .. (name or "target") .. " / " .. (CurrentId or "none"))
+    LiteAssistMB:SetAttribute("unit", name or "target")
+    DebugMsg("Set assist to " .. (name or "target") .. " / " .. (id or "none"))
     
 end
 
@@ -345,7 +342,7 @@ local function Learn(token)
     AssistChangeAlert(assistname)
     DispatchCallbacks()
     UpdateId()
-    UpdateMacro()
+    UpdateMacro(CurrentName, CurrentId)
 
     if CurrentName ~= nil then
         EnableEventHandling()
@@ -380,12 +377,21 @@ function LiteAssist_OnLoad(self)
     DebugMsg("OnLoad handler called.")
     DebugMsg("A truckload of debugging output enabled.")
 
-    -- Set up the default options for our assisting (assist target)
-    LiteAssistDo:SetAttribute("type", "macro")
-    LiteAssistDo:SetAttribute("type2", "assist")
+    -- This makes the box just high enough for one line of text
+    local _, h, _ = self:GetFont()
+    self:SetHeight(math.ceil(h) + 2)
 
+    -- Set up the default options for our assisting (assist target)
     -- https://github.com/Stanzilla/WoWUIBugs/issues/317#issuecomment-1510847497
+    LiteAssistDo:SetAttribute("type", "macro")
     LiteAssistDo:SetAttribute("pressAndHoldAction", true)
+    LiteAssistDo:SetAttribute("typeRelease", "macro")
+    LiteAssistDo:RegisterForClicks("AnyDown")
+
+    LiteAssistMB:SetAttribute("type", "assist")
+    LiteAssistMB:SetAttribute("pressAndHoldAction", true)
+    LiteAssistMB:SetAttribute("typeRelease", "assist")
+    LiteAssistMB:RegisterForClicks("AnyDown")
 
     CurrentName = nil
     UpdateId()
@@ -404,7 +410,6 @@ function LiteAssist_OnLoad(self)
     -- Cause the actions to fire on keydown rather than keyup
     LiteAssistLearnTarget:RegisterForClicks("AnyDown")
     LiteAssistLearnHover:RegisterForClicks("AnyDown")
-    LiteAssistDo:RegisterForClicks("AnyDown")
 
     -- Default message duration on the alert frame
     LiteAssist:SetTimeVisible(3)
@@ -430,7 +435,7 @@ function LiteAssist_OnEvent(self, event, arg1, ...)
             local oldid = CurrentId
             UpdateId()
             if CurrentId ~= oldid then
-                UpdateMacro()
+                UpdateMacro(CurrentName, CurrentId)
             end
         end
         return
@@ -464,7 +469,7 @@ function LiteAssist_OnEvent(self, event, arg1, ...)
         end
 
         UpdateId()
-        UpdateMacro()
+        UpdateMacro(CurrentName, CurrentId)
         return
     end
 

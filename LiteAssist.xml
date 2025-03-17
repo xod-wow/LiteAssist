@@ -20,17 +20,8 @@
   - The configuration of that is done in the OnLoad handler.
  -->
 
-<Button name="LiteAssistDo"
-    inherits="SecureActionButtonTemplate"
-    hidden="true"
-    >
-
-    <Size>
-        <!-- In theory if you don't have a size you can't click -->
-        <AbsDimension x="2" y="2" />
-    </Size>
-
-</Button>
+<Button name="LiteAssistDo" inherits="SecureActionButtonTemplate" />
+<Button name="LiteAssistMB" inherits="SecureActionButtonTemplate" />
 
 <!--
   - These two buttons learn a new assist unit (MA, whatever).
@@ -49,40 +40,17 @@
   - just to save one button.
  -->
 
-<Button name="LiteAssistLearnTarget"
-    inherits="SecureActionButtonTemplate"
-    hidden="true"
-    >
-
-    <Size>
-        <AbsDimension x="2" y="2" />
-    </Size>
-
+<Button name="LiteAssistLearnTarget" inherits="SecureActionButtonTemplate" hidden="true">
     <Scripts>
-        <PreClick>
-            LiteAssist_LearnPreClick(self, button, down)
-        </PreClick>
+        <PreClick function="LiteAssist_LearnPreClick" />
     </Scripts>
-
 </Button>
 
-<Button name="LiteAssistLearnHover"
-    inherits="SecureActionButtonTemplate"
-    hidden="true"
-    >
-
-    <Size>
-        <AbsDimension x="2" y="2" />
-    </Size>
-
+<Button name="LiteAssistLearnHover" inherits="SecureActionButtonTemplate" hidden="true">
     <Scripts>
-        <PreClick>
-            LiteAssist_LearnPreClick(self, button, down)
-        </PreClick>
+        <PreClick function="LiteAssist_LearnPreClick" />
     </Scripts>
-
 </Button>
-
 
 <!--
   - This is the actual text frame that holds the messages about
@@ -116,16 +84,8 @@
     <FontString inherits="NumberFontNormalHuge" justifyH="CENTER" />
 
     <Scripts>
-        <OnLoad>
-            LiteAssist_OnLoad(self)
-
-            -- This makes the box just high enough for one line of text
-            local _, h, _ = self:GetFont()
-            self:SetHeight(math.ceil(h) + 2)
-        </OnLoad>
-        <OnEvent>
-            LiteAssist_OnEvent(self, event, ...)
-        </OnEvent>
+        <OnLoad function="LiteAssist_OnLoad" />
+        <OnEvent function="LiteAssist_OnEvent" />
     </Scripts>
 
 </MessageFrame>
