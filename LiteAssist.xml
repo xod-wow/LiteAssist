@@ -20,8 +20,8 @@
   - The configuration of that is done in the OnLoad handler.
  -->
 
-<Button name="LiteAssistDo" inherits="SecureActionButtonTemplate" />
-<Button name="LiteAssistMB" inherits="SecureActionButtonTemplate" />
+<Button name="LiteAssistDo" inherits="SecureActionButtonTemplate" hidden="true" />
+<Button name="LiteAssistMB" inherits="SecureActionButtonTemplate" hidden="true" />
 
 <!--
   - These two buttons learn a new assist unit (MA, whatever).

@@ -358,8 +358,6 @@ end
 
 function LiteAssist_LearnPreClick(self, inputButton, isDown)
 
-    if isDown ~= GetCVarBool("ActionButtonUseKeyDown") then return end
-
     local fromtoken = self:GetAttribute("X-realunit")
 
     DebugMsg("PreClick handler called for unit id "..fromtoken)
@@ -486,4 +484,3 @@ function LiteAssist_OnUpdate(self, elapsed)
     SetOnTarget(false)
     TimeSinceLastUpdate = 0
 end
-
