@@ -1,7 +1,7 @@
 --
 -- LiteAssist World of Warcraft Addon
 --
--- Copyright 2008-2020 Mike "Xodiv" Battersby
+-- Copyright 2008 Mike "Xodiv" Battersby
 --
 -- A simple addon that lets you set three keybindings, one to learn
 -- an assist (aka MA) unit from your current target, one to learn an
@@ -17,10 +17,7 @@ local MacroMagicId = "{LiteAssistUnitId}"
 local CurrentName = nil
 local QueuedName = nil
 local CurrentId = nil
-local OnTarget = false
 
-local UpdateFrequency = TOOLTIP_UPDATE_TIME
-local TimeSinceLastUpdate = 0
 local UpdateQueued = nil
 
 local AssistEventCallbacks = {}
@@ -35,7 +32,7 @@ local function DebugMsg(msg)
         return
     end
 
-    local msg = "|cff00ff00"..LITEASSIST_MODNAME..":|r "..msg.." (debug)"
+    msg = "|cff00ff00"..LITEASSIST_MODNAME..":|r "..msg.." (debug)"
     DEFAULT_CHAT_FRAME:AddMessage(msg, 0.5, 1, 0.5, 1)
 end
 
@@ -59,13 +56,11 @@ local function EnableEventHandling()
     DebugMsg("Enabling event handling.")
 
     local this = LiteAssist
-    this:RegisterEvent("PLAYER_TARGET_CHANGED")
     this:RegisterEvent("GROUP_ROSTER_UPDATE")
     this:RegisterEvent("PLAYER_FOCUS_CHANGED")
     this:RegisterEvent("UNIT_PET")
     this:RegisterEvent("UPDATE_MACROS")
     this:RegisterEvent("PLAYER_REGEN_ENABLED")
-    this:SetScript("OnUpdate", LiteAssist_OnUpdate)
 end
 
 
@@ -74,14 +69,11 @@ local function DisableEventHandling()
     DebugMsg("Disabling event handling.")
 
     local this = LiteAssist
-    this:UnregisterEvent("PLAYER_TARGET_CHANGED")
     this:UnregisterEvent("GROUP_ROSTER_UPDATE")
     this:UnregisterEvent("PLAYER_FOCUS_CHANGED")
     this:UnregisterEvent("UNIT_PET")
     this:UnregisterEvent("UPDATE_MACROS")
     this:UnregisterEvent("PLAYER_REGEN_ENABLED")
-    this:SetScript("OnUpdate", nil)
-    LiteAssistTargetFrameIndicator:Hide()
 end
 
 
@@ -146,20 +138,6 @@ local function UnitNameToId(name)
         end
     end
 
-    for i = 1,4,1 do
-        u = "partypet"..i
-        if UnitName(u) == name then
-            return u
-        end
-    end
-
-    for i = 1,40,1 do
-        u = "raidpet"..i
-        if UnitName(u) == name then
-            return u
-        end
-    end
-
     return nil
 end
 
@@ -190,7 +168,7 @@ local function GetMacroText(name)
     else
         DebugMsg("No macro found.")
     end
-    
+
     if mtext == nil then
         mtext = "/assist "..name
         DebugMsg("Using default macro text: "..mtext)
@@ -201,34 +179,6 @@ local function GetMacroText(name)
     end
 
     return mtext
-end
-
-
--- ----------------------------------------------------------------------------
--- Functions for updating the OnTarget indicator (following assist)
---
-
-local function SetOnTarget(playerChanged)
-
-    if not CurrentId then
-        if OnTarget then
-            -- Must have cleared the assist
-            LiteAssistTargetFrameIndicator:Hide()
-            OnTarget = false
-        end
-        return
-    end
-
-    if UnitIsUnit("target", CurrentId.."target") then
-        if not OnTarget then
-            OnTarget = true
-            LiteAssistTargetFrameIndicator:Show()
-        end
-    elseif OnTarget then
-        OnTarget = false
-        LiteAssistTargetFrameIndicator:Hide()
-    end
-
 end
 
 
@@ -262,7 +212,7 @@ local function DispatchCallbacks()
     DebugMsg("Dispatching Callbacks.")
 
     for _, fn in ipairs(AssistEventCallbacks) do
-        pcall(fn, CurrentName, OnTarget)
+        pcall(fn, CurrentName)
     end
 end
 
@@ -296,7 +246,6 @@ local function UpdateMacro(name, id)
     LiteAssistDo:SetAttribute("macrotext", GetMacroText(name or "target"))
     LiteAssistMB:SetAttribute("unit", name or "target")
     DebugMsg("Set assist to " .. (name or "target") .. " / " .. (id or "none"))
-    
 end
 
 
@@ -356,7 +305,7 @@ end
 -- Functions called from Secure UI elements
 --
 
-function LiteAssist_LearnPreClick(self, inputButton, isDown)
+function LiteAssist_LearnPreClick(self)
 
     local fromtoken = self:GetAttribute("X-realunit")
 
@@ -414,7 +363,7 @@ function LiteAssist_OnLoad(self)
 
 end
 
-function LiteAssist_OnEvent(self, event, arg1, ...)
+function LiteAssist_OnEvent(_, event)
 
     DebugMsg("Received event: "..event)
 
@@ -436,12 +385,6 @@ function LiteAssist_OnEvent(self, event, arg1, ...)
                 UpdateMacro(CurrentName, CurrentId)
             end
         end
-        return
-    end
-
-    if event == "PLAYER_TARGET_CHANGED" then
-        SetOnTarget(true)
-        TimeSinceLastUpdate = 0
         return
     end
 
@@ -471,16 +414,4 @@ function LiteAssist_OnEvent(self, event, arg1, ...)
         return
     end
 
-end
-
-function LiteAssist_OnUpdate(self, elapsed)
-
-    TimeSinceLastUpdate = TimeSinceLastUpdate + elapsed
-
-    if TimeSinceLastUpdate < UpdateFrequency then
-        return
-    end
-
-    SetOnTarget(false)
-    TimeSinceLastUpdate = 0
 end

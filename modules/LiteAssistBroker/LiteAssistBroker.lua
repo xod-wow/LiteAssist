@@ -1,7 +1,7 @@
 --
 -- LiteAssistBroker
 --
--- Copyright 2008-2020 Mike "Xodiv" Battersby
+-- Copyright 2008 Mike "Xodiv" Battersby
 --
 -- Adds LibDataBroker support to LiteAssist
 --
@@ -26,4 +26,3 @@ local function UpdateName(name)
 end
 
 LiteAssist_RegisterCallback(UpdateName)
-

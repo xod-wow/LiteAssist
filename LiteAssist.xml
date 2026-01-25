@@ -90,43 +90,4 @@
 
 </MessageFrame>
 
-
-<!--
-  - This is the "are we targeting the same thing as our assist" frame,
-  - a picture of crossed swords that appears on the default target frame.
- -->
-
-<Frame name="LiteAssistTargetFrameIndicator"
-    frameStrata="MEDIUM"
-    parent="TargetFrame"
-    hidden="true"
-    >
-    <Layers>
-        <Layer level="OVERLAY">
-            <!-- I shamelessly stole this icon/placement from CC MainAssist -->
-            <Texture file="Interface\CharacterFrame\UI-StateIcon">
-                <Size>
-                    <AbsDimension x="32" y="32" />
-                </Size>
-                <Anchors>
-                    <Anchor
-                        point="TOPLEFT"
-                        relativeTo="TargetFrame"
-                        relativePoint="TOPLEFT"
-                        >
-                        <Offset>
-                            <AbsDimension x="-12" y="-16" />
-                        </Offset>
-                    </Anchor>
-                </Anchors>
-                <!-- The texture file actually has 4 images in it, one in
-                  - each quarter.  This picks the top right image, which
-                  - is the crossed swords.
-                 -->
-                <TexCoords left="0.5" right="0.95" top="0.05" bottom="0.5" />
-            </Texture>
-        </Layer>
-    </Layers>
-</Frame>
-
 </Ui>
