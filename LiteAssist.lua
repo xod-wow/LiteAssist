@@ -97,6 +97,13 @@ local function UnitIdToAssistName(id)
         return nil
     elseif UnitIsUnit("pet", id) then
         return "pet"
+    elseif EXPANSION_LEVEL == 0 and WOW_PROJECT_ID == 1 then
+        local first, last = UnitName(id)
+        if last then
+            return first..' '..last
+        else
+            return first
+        end
     else
         return UnitName(id)
     end
