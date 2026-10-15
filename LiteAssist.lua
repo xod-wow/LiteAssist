@@ -12,11 +12,11 @@
 local Debug = false
 local MacroName = "LiteAssistMacro"
 local MacroMagicName = "{LiteAssistUnit}"
-local MacroMagicId = "{LiteAssistUnitId}"
+local MacroMagicToken = "{LiteAssistUnitId}"
 
-local CurrentName = nil
-local QueuedName = nil
-local CurrentId = nil
+local CurrentUnitName = nil
+local QueuedUnitName = nil
+local CurrentUnitToken = nil
 
 local UpdateQueued = nil
 
@@ -88,44 +88,39 @@ end
 
 
 -- ----------------------------------------------------------------------------
--- Functions for Unit Id and Name manipulation
+-- Functions for Unit Token and Name manipulation
 --
 
-local function UnitIdToAssistName(id)
+local function UnitAssistName(unitToken)
 
-    if not UnitExists(id) then
+    if not UnitExists(unitToken) then
         return nil
-    elseif UnitIsUnit("pet", id) then
+    elseif UnitIsUnit("pet", unitToken) then
         return "pet"
-    elseif EXPANSION_LEVEL == 0 and WOW_PROJECT_ID == 1 then
-        local first, last = UnitName(id)
-        if last then
-            return first..' '..last
-        else
-            return first
-        end
+    elseif WOW_PROJECT_ID == 18 then
+        return NameUtil.GetUnmodifiedUnitFullName(unitToken)
     else
-        return UnitName(id)
+        return UnitName(unitToken)
     end
 
 end
 
-local function UnitNameToId(name)
+local function AssistNameToUnitToken(name)
 
     -- Some code relies on this returning nil for nil
     if name == nil then
         return nil
     end
 
-    if UnitName("player") == name then
+    if UnitAssistName("player") == name then
         return "player"
     end
 
-    if UnitName("pet") == name then
+    if UnitAssistName("pet") == name then
         return "pet"
     end
 
-    if UnitName("focus") == name then
+    if UnitAssistName("focus") == name then
         return "focus"
     end
 
@@ -133,14 +128,14 @@ local function UnitNameToId(name)
 
     for i = 1,4,1 do
         u = "party"..i
-        if UnitName(u) == name then
+        if UnitAssistName(u) == name then
             return u
         end
     end
 
     for i = 1,40,1 do
         u = "raid"..i
-        if UnitName(u) == name then
+        if UnitAssistName(u) == name then
             return u
         end
     end
@@ -165,7 +160,7 @@ local function GetMacroText(name)
 
         if string.find(mtext, MacroMagicName) then
             mtext = string.gsub(mtext, MacroMagicName, name)
-            mtext = string.gsub(mtext, MacroMagicId, CurrentId or "none")
+            mtext = string.gsub(mtext, MacroMagicToken, CurrentUnitToken or "none")
             DebugMsg("Macro text after substitution: ")
             DebugMsg(mtext)
         else
@@ -219,14 +214,14 @@ local function DispatchCallbacks()
     DebugMsg("Dispatching Callbacks.")
 
     for _, fn in ipairs(AssistEventCallbacks) do
-        pcall(fn, CurrentName)
+        pcall(fn, CurrentUnitName)
     end
 end
 
 
 function LiteAssist_GetAssistName()
     DebugMsg("Current assist name requested by another addon.")
-    return CurrentName
+    return CurrentUnitName
 end
 
 
@@ -234,17 +229,17 @@ end
 -- Functions for learning the assist
 --
 
-local function UpdateId()
-    local name = CurrentName
+local function UpdateUnitToken()
+    local name = CurrentUnitName
 
     if name == "pet" then
         DebugMsg("Unit is pet, using pet as unit id.")
-        CurrentId = "pet"
+        CurrentUnitToken = "pet"
     else
-        -- Note: UnitNameToId(nil) == nil
+        -- Note: AssistNameToUnitToken(nil) == nil
         DebugMsg("Trying to find unit id for name "..(name or "nil"))
-        CurrentId = UnitNameToId(name)
-        DebugMsg("Unit id for "..(name or "nil").." is "..(CurrentId or "nil"))
+        CurrentUnitToken = AssistNameToUnitToken(name)
+        DebugMsg("Unit id for "..(name or "nil").." is "..(CurrentUnitToken or "nil"))
     end
 end
 
@@ -280,27 +275,27 @@ end
 local function Learn(token)
 
     if UnitExists(token) and not UnitCanAssist("player", token) then
-        Alert(LITEASSIST_CANTASSISTNAME..UnitName(token))
+        Alert(LITEASSIST_CANTASSISTNAME..UnitAssistName(token))
         return
     end
 
-    local assistname = UnitIdToAssistName(token)
+    local assistname = UnitAssistName(token)
 
     if InCombatLockdown() then
         AssistChangeCombatAlert(assistname)
-        QueuedName = assistname
+        QueuedUnitName = assistname
         UpdateQueued = true
         EnableEventHandling()
         return
     end
 
-    CurrentName = assistname
+    CurrentUnitName = assistname
     AssistChangeAlert(assistname)
     DispatchCallbacks()
-    UpdateId()
-    UpdateMacro(CurrentName, CurrentId)
+    UpdateUnitToken()
+    UpdateMacro(CurrentUnitName, CurrentUnitToken)
 
-    if CurrentName ~= nil then
+    if CurrentUnitName ~= nil then
         EnableEventHandling()
     else
         DisableEventHandling()
@@ -347,8 +342,8 @@ function LiteAssist_OnLoad(self)
     LiteAssistMB:SetAttribute("typeRelease", "assist")
     LiteAssistMB:RegisterForClicks("AnyDown")
 
-    CurrentName = nil
-    UpdateId()
+    CurrentUnitName = nil
+    UpdateUnitToken()
     UpdateMacro()
 
     -- If we don't use unit="none" the button won't trigger if we're
@@ -382,14 +377,14 @@ function LiteAssist_OnEvent(_, event)
        event == "UNIT_PET" or
        event == "PLAYER_FOCUS_CHANGED" or
        event == "UPDATE_MACROS" then
-        -- Fixes up the CurrentId and reloads/resubs the macro.
+        -- Fixes up the CurrentUnitToken and reloads/resubs the macro.
         if InCombatLockdown() then
             UpdateQueued = true
         else
-            local oldid = CurrentId
-            UpdateId()
-            if CurrentId ~= oldid then
-                UpdateMacro(CurrentName, CurrentId)
+            local oldUnitToken = CurrentUnitToken
+            UpdateUnitToken()
+            if CurrentUnitToken ~= oldUnitToken then
+                UpdateMacro(CurrentUnitName, CurrentUnitToken)
             end
         end
         return
@@ -404,20 +399,20 @@ function LiteAssist_OnEvent(_, event)
         UpdateQueued = nil
 
         -- Can trigger because of roster update as well as in-combat learn
-        if QueuedName then
-            CurrentName = QueuedName
-            QueuedName = nil
-            AssistChangeAlert(CurrentName)
+        if QueuedUnitName then
+            CurrentUnitName = QueuedUnitName
+            QueuedUnitName = nil
+            AssistChangeAlert(CurrentUnitName)
             DispatchCallbacks()
-            if CurrentName ~= nil then
+            if CurrentUnitName ~= nil then
                 EnableEventHandling()
             else
                 DisableEventHandling()
             end
         end
 
-        UpdateId()
-        UpdateMacro(CurrentName, CurrentId)
+        UpdateUnitToken()
+        UpdateMacro(CurrentUnitName, CurrentUnitToken)
         return
     end
 
