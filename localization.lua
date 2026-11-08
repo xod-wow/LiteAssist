@@ -3,9 +3,11 @@
 -- Copyright 2008 Mike "Xodiv" Battersby
 --
 
+local locale = GetLocale()
+
 -- ----------------------------------------------------------------------
 -- Default / enUS locale
---
+
 BINDING_HEADER_LITEASSIST_TITLE = "LiteAssist"
 _G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Learn Assist From Target"
 _G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Learn Assist From MouseOver"
@@ -21,8 +23,11 @@ LITEASSIST_CANTASSISTNAME = "Can't assist "
 LITEASSIST_MACROTOOLONG = "LiteAssistMacro ends up longer than 255 characters"
 LITEASSIST_PET = PET
 
+-- ----------------------------------------------------------------------
 -- Russian (ruRU) ZamestoTV
---
+
+if locale == "ruRU" then
+
 BINDING_HEADER_LITEASSIST_TITLE = "LiteAssist"
 _G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Запомнить цель для ассиста"
 _G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Запомнить цель под курсором"
@@ -37,3 +42,5 @@ LITEASSIST_COMBATCLEAR = "Сброс ассиста отложен до окон
 LITEASSIST_CANTASSISTNAME = "Невозможно ассистировать цели "
 LITEASSIST_MACROTOOLONG = "Макрос LiteAssistMacro превышает длину в 255 символов"
 LITEASSIST_PET = "Питомец"
+
+end
