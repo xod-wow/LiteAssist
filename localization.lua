@@ -13,7 +13,6 @@ _G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Learn Assist From T
 _G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Learn Assist From MouseOver"
 _G["BINDING_NAME_CLICK LiteAssistDo:LeftButton"] = "Assist Learned Unit"
 
-LITEASSIST_MODNAME = "LiteAssist"
 LITEASSIST_SET = "Assist set: "
 LITEASSIST_CLEAR = "Assist cleared"
 LITEASSIST_COMBATNOLEARN = "Can't learn assist in combat"
@@ -21,6 +20,7 @@ LITEASSIST_COMBATSET = "Assist queued for combat end: "
 LITEASSIST_COMBATCLEAR = "Assist clear queued for combat end"
 LITEASSIST_CANTASSISTNAME = "Can't assist "
 LITEASSIST_MACROTOOLONG = "LiteAssistMacro ends up longer than 255 characters"
+LITEASSIST_BROKERTOOLTIP = "Displays your current LiteAssist unit"
 LITEASSIST_PET = PET
 
 -- ----------------------------------------------------------------------
@@ -33,7 +33,6 @@ _G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Запомнить 
 _G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Запомнить цель под курсором"
 _G["BINDING_NAME_CLICK LiteAssistDo:LeftButton"] = "Ассист запомненной цели"
 
-LITEASSIST_MODNAME = "LiteAssist"
 LITEASSIST_SET = "Установлен ассист для: "
 LITEASSIST_CLEAR = "Ассист сброшен"
 LITEASSIST_COMBATNOLEARN = "Нельзя сменить цель ассиста в бою"

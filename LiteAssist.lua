@@ -9,6 +9,8 @@
 -- assist the learned unit.
 --
 
+local addonName = ...
+
 local Debug = false
 local MacroName = "LiteAssistMacro"
 local MacroMagicName = "{LiteAssistUnit}"
@@ -32,7 +34,7 @@ local function DebugMsg(msg)
         return
     end
 
-    msg = "|cff00ff00"..LITEASSIST_MODNAME..":|r "..msg.." (debug)"
+    msg = "|cff00ff00"..addonName..":|r "..msg.." (debug)"
     DEFAULT_CHAT_FRAME:AddMessage(msg, 0.5, 1, 0.5, 1)
 end
 

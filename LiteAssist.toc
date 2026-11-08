@@ -6,6 +6,9 @@
 ## IconTexture: 524348
 ## X-Curse-Project-ID: 4462
 
+embeds.xml
+
 localization.lua
 LiteAssist.lua
 LiteAssist.xml
+LiteAssistBroker.lua
