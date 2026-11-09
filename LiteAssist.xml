@@ -18,6 +18,10 @@
   - the learnt named unit.
   -
   - The configuration of that is done in the OnLoad handler.
+  -
+  - The MB version does the same thing but doesn't use a macro so that you
+  - can call it from macros now they can't call each other. It doesn't use
+  - the macro templating, just the "assist" SecureActionButton action.
  -->
 
 <Button name="LiteAssistDo" inherits="SecureActionButtonTemplate" hidden="true" />

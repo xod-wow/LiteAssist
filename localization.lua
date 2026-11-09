@@ -3,12 +3,15 @@
 -- Copyright 2008 Mike "Xodiv" Battersby
 --
 
+local addonName = ...
+
 local locale = GetLocale()
+
+BINDING_HEADER_LITEASSIST_TITLE = addonName
 
 -- ----------------------------------------------------------------------
 -- Default / enUS locale
 
-BINDING_HEADER_LITEASSIST_TITLE = "LiteAssist"
 _G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Learn Assist From Target"
 _G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Learn Assist From MouseOver"
 _G["BINDING_NAME_CLICK LiteAssistDo:LeftButton"] = "Assist Learned Unit"
@@ -28,7 +31,6 @@ LITEASSIST_PET = PET
 
 if locale == "ruRU" then
 
-BINDING_HEADER_LITEASSIST_TITLE = "LiteAssist"
 _G["BINDING_NAME_CLICK LiteAssistLearnTarget:LeftButton"] = "Запомнить цель для ассиста"
 _G["BINDING_NAME_CLICK LiteAssistLearnHover:LeftButton"] = "Запомнить цель под курсором"
 _G["BINDING_NAME_CLICK LiteAssistDo:LeftButton"] = "Ассист запомненной цели"
